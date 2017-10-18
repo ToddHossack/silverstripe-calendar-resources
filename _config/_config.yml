@@ -1,0 +1,11 @@
+---
+Name: calendar-locations
+After:
+  - 'framework/*'
+  - 'cms/*'
+---
+
+# Extensions
+Event:
+  extensions:
+    - CalendarLocationsEventExtension

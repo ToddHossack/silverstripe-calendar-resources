@@ -1,0 +1,15 @@
+en:
+  CalendarLocationsCalendarPageExtension:
+  
+  CalendarLocationsEventExtension:
+      
+  EventLocation:
+    Title: 'Title'
+    Description: 'Description'
+    Address: 'Address'
+    City: 'Suburb / city'
+    State: 'State / Province'
+    Postcode: 'Post code'
+    Country: 'Country'
+    TimeZone: 'Time zone'
+    Phone: 'Phone'

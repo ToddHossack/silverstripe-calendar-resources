@@ -1,0 +1,25 @@
+{
+	"name": "toddhossack/silverstripe-calendar-locations",
+	"description": "Adds event locations and date internationalization to the calendar module",
+	"type": "silverstripe-module",
+	"homepage": "https://github.com/ToddHossack/silverstripe-calendar-locations",
+	"keywords": ["silverstripe","location"],
+	"authors": [
+		{
+			"name": "Todd Hossack",
+			"email": "todd@tiraki.com",
+			"role": "Developer"
+		}
+	],
+	"license": "BSD-3-Clause",
+	"require": {
+		"php": ">=5.4.0",
+		"silverstripe/cms": "~3.1",
+		"silverstripe/framework": "~3.1",
+		"spekulatius/silverstripe-timezones": "~0.3"
+	},
+	"extra": {
+        "installer-name": "calendar-locations"
+    },
+	"minimum-stability": "dev"
+}
