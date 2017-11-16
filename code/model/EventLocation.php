@@ -132,6 +132,11 @@ class EventLocation extends DataObject
 		);
 	}
     
+    public function UsageCount()
+    {
+        return $this->Events()->count();
+    }
+    
     /*
 	 * -------------------------------------------------------------------------
 	 * Template methods - @todo
@@ -147,12 +152,6 @@ class EventLocation extends DataObject
 		));
 		return $data->renderWith('LocationMap');
 	}
-    
-    
-    public function UsageCount()
-    {
-        return $this->Events()->count();
-    }
     
      * 
      */
