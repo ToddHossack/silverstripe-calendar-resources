@@ -3,9 +3,18 @@ Name: calendar-locations
 After:
   - 'framework/*'
   - 'cms/*'
+  - 'calendar/*'
 ---
 
 # Extensions
 Event:
   extensions:
     - CalendarLocationsEventExtension
+    
+# Admin
+CalendarAdmin:
+  managed_models:
+    - PublicEvent
+    - PublicEventCategory
+    - PublicCalendar
+    - EventLocation

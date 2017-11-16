@@ -2,14 +2,21 @@ en:
   CalendarLocationsCalendarPageExtension:
   
   CalendarLocationsEventExtension:
-      
+    LocationTab: 'Location'
+    LocationField: 'Select location'
   EventLocation:
+    SINGULARNAME: 'Location'
+    PLURALNAME: 'Locations'
+    AddressTab: 'Address'
+    UsageTab: 'Usage'
     Title: 'Title'
     Description: 'Description'
-    Address: 'Address'
+    Address: 'Street address'
     City: 'Suburb / city'
-    State: 'State / Province'
+    State: 'State / province'
     Postcode: 'Post code'
     Country: 'Country'
     TimeZone: 'Time zone'
     Phone: 'Phone'
+    UsageCount: 'Usage count'
+    Events: 'Linked to events'
