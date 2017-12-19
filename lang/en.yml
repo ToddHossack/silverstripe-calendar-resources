@@ -13,7 +13,7 @@ en:
     Description: 'Description'
     Address: 'Street address'
     City: 'Suburb / city'
-    State: 'State / province'
+    State: 'State / province / district'
     Postcode: 'Post code'
     Country: 'Country'
     TimeZone: 'Time zone'

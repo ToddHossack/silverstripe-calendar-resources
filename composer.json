@@ -17,7 +17,8 @@
 		"silverstripe/cms": "~3.1",
 		"silverstripe/framework": "~3.1",
 		"spekulatius/silverstripe-timezones": "~0.3",
-		"sheadawson/quickaddnew": "~1.1"
+		"sheadawson/quickaddnew": "~1.1",
+		"tkisilverstripeteam/tkicontactinfo": "~0.2"
 	},
 	"extra": {
         "installer-name": "calendar-locations"

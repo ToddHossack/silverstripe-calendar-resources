@@ -7,13 +7,7 @@ class EventLocation extends DataObject
     private static $db = array(
         'Title' => 'Varchar(200)',
         'Description' => 'HTMLText',
-        'Address'  => 'Varchar(255)',
-		'City'   => 'Varchar(100)',
-		'State'    => 'Varchar(100)',
-		'Country'  => 'Varchar(100)',
-        'Postcode' => 'Varchar(10)',
-        'TimeZone' => 'Varchar(100)',
-        'Phone' => 'Varchar(32)'
+        'TimeZone' => 'Varchar(100)'
     );
     
     private static $has_many = array(
@@ -57,21 +51,6 @@ class EventLocation extends DataObject
         ));
        
         /*
-         * Address tab
-         */
-        $fields->findOrMakeTab('Root.AddressTab',_t('EventLocation.AddressTab','Address'));
-        // Address
-        $fields->addFieldsToTab('Root.AddressTab',array(
-            TextField::create('Address',_t('EventLocation.Address','Street address')),
-            TextField::create('City',_t('EventLocation.City','Suburb / city')),
-            TextField::create('State',_t('EventLocation.State','State / province')),
-            TextField::create('Country',_t('EventLocation.Country','Country')),
-            TextField::create('Postcode',_t('EventLocation.Postcode','Post code')),
-            //TimeZoneField::create('TimeZone', _t('EventLocation.TimeZone')) @todo
-            TextField::create('Phone',_t('EventLocation.Phone','Phone'))
-        ));
-       
-        /*
          * Usage tab
          */
         $fields->findOrMakeTab('Root.UsageTab',_t('EventLocation.UsageTab','Usage'));
@@ -82,6 +61,8 @@ class EventLocation extends DataObject
         $fields->addFieldToTab('Root.UsageTab',
             ReadonlyField::create('EventsList',_t('EventLocation.Events','Events'))->setValue(implode("\n",$eventsList))
         );
+        
+        $this->extend('updateCMSFields', $fields);
         
         return $fields;
 	}
@@ -137,77 +118,5 @@ class EventLocation extends DataObject
         return $this->Events()->count();
     }
     
-    /*
-	 * -------------------------------------------------------------------------
-	 * Template methods - @todo
-	 * -------------------------------------------------------------------------
-	 
-    public function MapHTML($width,$height)
-    {
-		$data = ArrayData::create(array(
-			'Width'    => $width,
-			'Height'   => $height,
-			'Address' => rawurlencode($this->getFullAddressString()),
-			'ApiKey' => SiteConfig::current_site_config()->MapsApiKey
-		));
-		return $data->renderWith('LocationMap');
-	}
-    
-     * 
-     */
-    
-    /*
-	 * -------------------------------------------------------------------------
-	 * Helper methods @todo
-	 * -------------------------------------------------------------------------
-	 */
-    /**
-	 * Determines whether object has minimum location fields
-	 * @return boolean
-	 
-	public function hasFullAddress()
-	{
-		return ($this->Address
-			&& $this->City
-			&& $this->Country
-		);
-	}
-
-	public function isMappable()
-	{
-        $mapsApiKey = $this->findMapsApiKey();
-		return $this->hasFullAddress() && $this->findMapsApiKey();
-	}
-    
-    
-    protected function findMapsApiKey()
-    {
-        $key = null;
-        // First check for custom extension method
-        $result = $this->extend('extendFindMapsApiKey');
-        if (is_array($result) && !empty($result)) {
-            $key = array_pop($result);
-        }
-        // Fall back to SiteConfig, if present
-        if(!$key && class_exists('SiteConfig')) {
-            $siteConfig = SiteConfig::current_site_config();
-            $key = ($siteConfig && !empty($siteConfig->MapsApiKey)) ? $siteConfig->MapsApiKey : null;
-        }
-        
-        return $key;
-    }
-    
-    public function getFullAddressString()
-	{
-		$arr = array(
-			$this->Address,
-			$this->City,
-			$this->State,
-			$this->Country
-		);
-		$str = implode(', ',array_filter($arr));
-		return trim(preg_replace('/\n+/',', ', $str));
-	}
-    */
 }
 

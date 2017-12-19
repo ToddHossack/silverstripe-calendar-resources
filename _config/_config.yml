@@ -18,3 +18,7 @@ CalendarAdmin:
     - PublicEventCategory
     - PublicCalendar
     - EventLocation
+    
+EventLocation:
+  extensions:
+    - TkiContactInfoExtension
