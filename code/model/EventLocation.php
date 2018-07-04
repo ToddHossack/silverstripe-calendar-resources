@@ -10,16 +10,17 @@ class EventLocation extends DataObject
         'TimeZone' => 'Varchar(100)'
     );
     
+    private static $has_one = array(
+        'Image' => 'Image'
+    );
+    
     private static $has_many = array(
         'Events' => 'Event'
     );
     
-    private static $many_many = array(
-        'Images' => 'Image'
-    );
-    
     private static $casting = array(
-		'FullAddressString' => 'Text'
+        'SummaryString' => 'Text',
+        'AddressString' => 'Text'
 	);
     
     private static $summary_fields = array(
@@ -40,7 +41,7 @@ class EventLocation extends DataObject
         
         $fields = FieldList::create();
         $fields->push(TabSet::create("Root", $mainTab = Tab::create("Main")));
-        
+
         /*
          * Main tab
          */
@@ -49,7 +50,14 @@ class EventLocation extends DataObject
             TextField::create('Title',_t('EventLocation.Title','Title')),
             HtmlEditorField::create('Description',_t('EventLocation.Description','Description'))
         ));
-       
+
+        /* 
+         * Image tab 
+         */
+        $fields->findOrMakeTab('Root.ImageTab',_t('EventLocation.ImageTab','Image'));
+        $imageField = SelectUploadField::create('Image',_t('EventLocation.Image','Location image'));
+        $fields->addFieldToTab('Root.Image',$imageField);
+        
         /*
          * Usage tab
          */
@@ -68,19 +76,17 @@ class EventLocation extends DataObject
 	}
     
     public function getAddNewFields() {
-        $fields = $this->scaffoldFormFields(array(
-			'includeRelations' => false,
-			'tabbed' => false,
-			'ajaxSafe' => true
-		));
-		
-        $fields->removeByName('Description');
-        $fields->removeByName('TimeZone');
+        $fields = FieldList::create($this->createAddressFields());
+        $fields->removeByName('AddressHeader');
+        $fields->removeByName('LocationName');
+        $fields->removeByName('UseMailingAddress');
+        $fields->unshift(TextField::create('Title',_t('EventLocation.Title','Title')));
         
-        /** @todo
+         /** @todo
         $tzField = TimeZoneField::create('TimeZone', _t('EventLocation.TimeZone'));
 		$fields->replaceField('TimeZone',$tzField);
         */
+       
         return $fields;
 	}
     
@@ -116,6 +122,31 @@ class EventLocation extends DataObject
     public function UsageCount()
     {
         return $this->Events()->count();
+    }
+    
+    
+    public function getSummaryString()
+    {
+        return $this->getAddressDetailString(['Address','CountryName']);
+    }
+    
+    public function getAddressString()
+    {
+        return $this->getAddressDetailString(['Title']);
+    }
+    
+    protected function getAddressDetailString($excludeFields=array())
+    {
+        $arr = [];
+        $excludeFields = (array) $excludeFields;
+        $fields = array_diff(['Title','City','StateName','CountryName'],$excludeFields);
+        
+        foreach($fields as $v) {
+            $arr[] = $this->{$v};
+        }
+     
+        $str = implode(', ', array_filter($arr));
+        return trim(preg_replace('/\n+/', ', ', $str));
     }
     
 }

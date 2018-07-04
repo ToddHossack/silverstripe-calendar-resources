@@ -20,3 +20,5 @@ en:
     Phone: 'Phone'
     UsageCount: 'Usage count'
     Events: 'Linked to events'
+    ImageTab: 'Image'
+    Image: 'Location image'
