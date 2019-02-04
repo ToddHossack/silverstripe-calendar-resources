@@ -11,14 +11,3 @@ Event:
   extensions:
     - CalendarLocationsEventExtension
     
-# Admin
-CalendarAdmin:
-  managed_models:
-    - PublicEvent
-    - PublicEventCategory
-    - PublicCalendar
-    - EventLocation
-    
-EventLocation:
-  extensions:
-    - TkiContactInfoExtension

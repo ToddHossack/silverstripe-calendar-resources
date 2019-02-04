@@ -1,24 +1,13 @@
 en:
-  CalendarLocationsCalendarPageExtension:
-  
-  CalendarLocationsEventExtension:
-    LocationTab: 'Location'
-    LocationField: 'Select location'
-  EventLocation:
-    SINGULARNAME: 'Location'
-    PLURALNAME: 'Locations'
-    AddressTab: 'Address'
-    UsageTab: 'Usage'
+  EventResource:
+    SINGULARNAME: 'Event Resource'
+    PLURALNAME: 'Event Resources'
     Title: 'Title'
-    Description: 'Description'
-    Address: 'Street address'
-    City: 'Suburb / city'
-    State: 'State / province / district'
-    Postcode: 'Post code'
-    Country: 'Country'
-    TimeZone: 'Time zone'
-    Phone: 'Phone'
-    UsageCount: 'Usage count'
-    Events: 'Linked to events'
-    ImageTab: 'Image'
-    Image: 'Location image'
+    Type: 'Type'
+    Type-InternalPage: 'Link to a page on this site'
+    Type-InternalFile: 'Link to a file on this site'
+    Type-ExternalURL: 'Link to an external URL'
+    InternalLink: 'Internal Page'
+    ExternalURL: 'External URL'
+    Summary: 'Summary'
+    
