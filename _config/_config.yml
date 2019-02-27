@@ -1,5 +1,5 @@
 ---
-Name: calendar-locations
+Name: calendar-resources
 After:
   - 'framework/*'
   - 'cms/*'
@@ -9,5 +9,5 @@ After:
 # Extensions
 Event:
   extensions:
-    - CalendarLocationsEventExtension
+    - CalendarResourcesEventExtension
     

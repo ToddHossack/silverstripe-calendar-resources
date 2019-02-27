@@ -17,6 +17,16 @@ class EventResource extends DataObject
         'InternalFile' => 'File'
     );
    
+    /**
+	 * @config
+	 */
+	private static $summary_fields = array(
+        'ID',
+		'Title',
+        'Summary',
+        'Type'
+	);
+    
     /*
 	 * -------------------------------------------------------------------------
 	 * Admin methods
@@ -97,22 +107,16 @@ class EventResource extends DataObject
 		return _t('EventResource.PLURALNAME', 'Locations');
 	}
     
-    public function fieldLabels($includeRelations = true)
+    public function fieldLabels($includerelations = true)
 	{
-		return array_merge(
-			parent::fieldLabels($includeRelations),
-			array(
-				'Title' => _t('EventResource.Title', 'Title'),
-				'Description' => _t('EventResource.Description', 'Description'),
-				'Address' => _t('EventResource.Address', 'Address'),
-				'City' => _t('EventResource.City', 'Suburb / city'),
-				'State' => _t('EventResource.State', 'State / province'),
-				'Postcode' => _t('EventResource.Postcode', 'Post code'),
-                'Country' => _t('EventResource.Country', 'Country'),
-                'TimeZone' => _t('EventResource.TimeZone', 'Disabled'),
-                'Phone' => _t('EventResource.Phone', 'Phone'),
-                'UsageCount' => _t('EventResource.UsageCount', 'Usage count')
-			)
+		return array_merge(parent::fieldLabels($includerelations),(array) $this->translatedLabels());
+	}
+	
+	protected function translatedLabels() {
+		return array(
+			'Title' => _t('EventResource.Title','Title'),
+            'Summary' => _t('EventResource.Summary','Summary'),
+            'Type' => _t('EventResource.Type','Type')
 		);
 	}
     
