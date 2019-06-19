@@ -17,6 +17,10 @@ class EventResource extends DataObject
         'InternalFile' => 'File'
     );
    
+    private static $casting = array(
+		'Link' => 'Text'
+	);
+    
     /**
 	 * @config
 	 */
@@ -82,29 +86,14 @@ class EventResource extends DataObject
         return $fields;
 	}
     
-    public function getAddNewFields() {
-        $fields = FieldList::create($this->createAddressFields());
-        $fields->removeByName('AddressHeader');
-        $fields->removeByName('LocationName');
-        $fields->removeByName('UseMailingAddress');
-        $fields->unshift(TextField::create('Title',_t('EventResource.Title','Title')));
-        
-         /** @todo
-        $tzField = TimeZoneField::create('TimeZone', _t('EventResource.TimeZone'));
-		$fields->replaceField('TimeZone',$tzField);
-        */
-       
-        return $fields;
-	}
-    
     public function singular_name()
 	{
-		return _t('EventResource.SINGULARNAME', 'Location');
+		return _t('EventResource.SINGULARNAME', 'Resource');
 	}
 
 	public function plural_name()
 	{
-		return _t('EventResource.PLURALNAME', 'Locations');
+		return _t('EventResource.PLURALNAME', 'Resources');
 	}
     
     public function fieldLabels($includerelations = true)
@@ -119,36 +108,29 @@ class EventResource extends DataObject
             'Type' => _t('EventResource.Type','Type')
 		);
 	}
-    
-    public function UsageCount()
-    {
-        return $this->Events()->count();
-    }
-    
-    
-    public function getSummaryString()
-    {
-        return $this->getAddressDetailString(['Address','CountryName']);
-    }
-    
-    public function getAddressString()
-    {
-        return $this->getAddressDetailString(['Title']);
-    }
-    
-    protected function getAddressDetailString($excludeFields=array())
-    {
-        $arr = [];
-        $excludeFields = (array) $excludeFields;
-        $fields = array_diff(['Title','City','StateName','CountryName'],$excludeFields);
-        
-        foreach($fields as $v) {
-            $arr[] = $this->{$v};
-        }
-     
-        $str = implode(', ', array_filter($arr));
-        return trim(preg_replace('/\n+/', ', ', $str));
-    }
-    
+
+    /*
+	 * -------------------------------------------------------------------------
+	 * Template methods
+	 * -------------------------------------------------------------------------
+	 */
+	public function Link()
+	{
+		switch($this->Type) {
+			case 'InternalPage':
+				$obj = $this->InternalPage();
+				return ($obj) ? $obj->AbsoluteLink() : '';
+				break;
+			case 'InternalFile':
+				$obj = $this->InternalFile();
+				return ($obj) ? $obj->AbsoluteLink() : '';
+				break;
+			case 'ExternalURL':
+				return $this->ExternalURL;
+				break;
+		}
+
+	}
+   
 }
 
