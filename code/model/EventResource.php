@@ -109,6 +109,25 @@ class EventResource extends DataObject
 		);
 	}
 
+    protected function setExternalURL($value)
+	{
+		$this->setField('ExternalURL',$this->prepareURL($value));
+	}
+    
+    /**
+	 * Adds scheme if missing
+	 * @param  string $value
+	 * @return string
+	 */
+	protected function prepareURL($value)
+	{
+		$scheme = parse_url($value,PHP_URL_SCHEME);
+		if(!empty($value) && (empty($scheme) || strpos($value,'://' === false))) {
+			$value = 'http://'. $value;
+		}
+		return $value;
+	}
+    
     /*
 	 * -------------------------------------------------------------------------
 	 * Template methods
