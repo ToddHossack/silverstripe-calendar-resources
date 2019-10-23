@@ -151,5 +151,76 @@ class EventResource extends DataObject
 
 	}
    
+    /* 
+	 * -------------------------------------------------------------------------
+	 *  Permissions
+	 * -------------------------------------------------------------------------
+	 */
+	
+    /**
+	 * 
+	 * @param Member $member
+	 * @return boolean
+	 */
+    public function canCreate($member = null)
+    {
+        $extended = $this->extendedCan(__FUNCTION__, $member);
+		if($extended !== null) {
+			return $extended;
+		}
+        if($member && Permission::check('ADMIN', 'any', $member)) {
+            return true;
+        }
+        return Permission::check('EVENT_MANAGE');
+    }
+    
+	/**
+	 * 
+	 * @param Member $member
+	 * @return boolean
+	 */
+	public function canView($member = null)
+    {
+		$extended = $this->extendedCan(__FUNCTION__, $member);
+		if($extended !== null) {
+			return $extended;
+		}
+        return true;
+    }
+
+	/**
+	 * 
+	 * @param Member $member
+	 * @return boolean
+	 */
+    public function canEdit($member = null)
+    {
+        $extended = $this->extendedCan(__FUNCTION__, $member);
+		if($extended !== null) {
+			return $extended;
+		}
+		if($member && Permission::check('ADMIN', 'any', $member)) {
+            return true;
+        }
+        return Permission::check('EVENT_MANAGE');
+    }
+
+	/**
+	 * 
+	 * @param Member $member
+	 * @return boolean
+	 */
+    public function canDelete($member = null)
+    {
+        $extended = $this->extendedCan(__FUNCTION__, $member);
+		if($extended !== null) {
+			return $extended;
+		}
+		if($member && Permission::check('ADMIN', 'any', $member)) {
+            return true;
+        }
+        return Permission::check('EVENT_MANAGE');
+    }
+    
 }
 

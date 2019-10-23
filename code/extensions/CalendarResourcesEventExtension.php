@@ -20,7 +20,7 @@ class CalendarResourcesEventExtension extends DataExtension {
 			$this->owner->Resources(),
 			$config));
 		} else {
-            $fields->addFieldToTab('Root.Resources', LiteralField::create('NotSaved', "<p class='message warning'>"._t('CalendarResourcesEventExtension.AddResourcesAfterSaving', 'Links to resources may be added after the event has been saved').'</p>'));
+            $fields->addFieldToTab('Root.Resources', LiteralField::create('NotSaved', "<p class='message warning'>"._t('CalendarResourcesEventExtension.AddResourcesAfterSaving', 'Links to resources may be added after the event has been saved  for the first time.').'</p>'));
         }
     }
 
